@@ -1,11 +1,11 @@
 const mergepdfs = async (p1) => {
   
   // We're using import('pdf-merger-js') to dynamically import the pdf-merger-js module. This is compatible with both ES modules and CommonJS modules.
+  // We're using await import(...) to wait for the dynamic import to complete and then accessing the default export (PDFMerger) from the imported module.
   const { default: PDFMerger } = await import('pdf-merger-js');
   
   var merger = new PDFMerger();
-  // console.log(p1)
-  // const q = []
+
   for (i of p1){
     console.log(i)
     await merger.add(i);
