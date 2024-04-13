@@ -15,21 +15,21 @@ app.get('/', (req, res) => {
 })
 
 app.post('/merge', upload.array('pdfs', 33), async (req, res, next) => {
-    // console.log(req.files.length)
+    // console.log(req.files)
 
     let w = []
     for (let i = 0; i < req.files.length; i++){
         // console.log(req.files[i].path)
         w.push(path.join(__dirname, req.files[i].path))
     }
-
-    // req.files is array of `photos` files
     // req.body will contain the text fields, if there were any
 
     // let d = await mergepdfs(path.join(__dirname, req.files[0].path), path.join(__dirname, req.files[1].path))
-    let d = await mergepdfs(w)
     // res.send({data: req.files})
-    res.redirect(`http://localhost:3000/static/${d}.pdf`)
+
+    let d = await mergepdfs(w)
+    res.download(`${__dirname}/public/${d}.pdf`)
+    // res.redirect(`http://localhost:3000/static/${d}.pdf`)
   })
 
 app.listen(port, () => {
